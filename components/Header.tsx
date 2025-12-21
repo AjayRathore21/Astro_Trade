@@ -10,7 +10,7 @@ const Header = () => {
         <Link href="/">
           <Image
             src="/assets/images/logo.png"
-            alt="Signalist logo"
+            alt="AstroTrade logo"
             width={140}
             height={32}
             className="h-8 w-auto cursor-pointer"
