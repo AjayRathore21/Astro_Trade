@@ -24,6 +24,7 @@ const SignIn = () => {
   });
 
   const onSubmit = async (data: SignInFormData) => {
+    console.log("why this not clicking@@@@");
     try {
       const result = await signInWithEmail(data);
       if (result.success) router.push("/");
