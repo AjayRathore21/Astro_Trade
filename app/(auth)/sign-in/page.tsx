@@ -47,10 +47,6 @@ const SignIn = () => {
           placeholder="ajay@testing.com"
           register={register}
           error={errors.email}
-          validation={{
-            required: "Email is required",
-            pattern: /^\w+@\w+\.\w+$/,
-          }}
         />
 
         <InputField
