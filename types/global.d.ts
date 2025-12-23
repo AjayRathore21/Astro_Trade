@@ -1,279 +1,220 @@
 declare global {
-    interface SignInFormData {
-        email: string;
-        password: string;
-    }
+  type SignInFormData = {
+    email: string;
+    password: string;
+  };
 
-    type SignUpFormData = {
-        fullName: string;
-        email: string;
-        password: string;
-        country: string;
-        investmentGoals: string;
-        riskTolerance: string;
-        preferredIndustry: string;
-    };
+  type SignUpFormData = {
+    fullName: string;
+    email: string;
+    password: string;
+    country: string;
+    investmentGoals: string;
+    riskTolerance: string;
+    preferredIndustry: string;
+  };
 
-    interface WelcomeEmailData {
-        email: string;
-        name: string;
-        intro: string;
-    }
+  type CountrySelectProps = {
+    name: string;
+    label: string;
+    control: Control;
+    error?: FieldError;
+    required?: boolean;
+  };
 
-    type User = {
-        id: string;
-        name: string;
-        email: string;
-    };
+  type FormInputProps = {
+    name: string;
+    label: string;
+    placeholder: string;
+    type?: string;
+    register: UseFormRegister;
+    error?: FieldError;
+    validation?: RegisterOptions;
+    disabled?: boolean;
+    value?: string;
+  };
 
-    //
-    type StockData = {
-        symbol: string;
-        company: string;
-        price: string;
-        change: string;
-        marketCap: string;
-        peRatio: string;
-        eps: string;
-        sentiment: string;
-    };
+  type Option = {
+    value: string;
+    label: string;
+  };
 
-    type PaginationInfo = {
-        currentPage: number;
-        totalPages: number;
-        totalItems: number;
-        itemsPerPage: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
+  type SelectFieldProps = {
+    name: string;
+    label: string;
+    placeholder: string;
+    options: readonly Option[];
+    control: Control;
+    error?: FieldError;
+    required?: boolean;
+  };
 
-    type StocksResponse = {
-        data: StockData[];
-        pagination: PaginationInfo;
-    };
+  type FooterLinkProps = {
+    text: string;
+    linkText: string;
+    href: string;
+  };
 
-    type MarketNewsArticle = {
-        id: number;
-        headline: string;
-        summary: string;
-        source: string;
-        url: string;
-        datetime: number;
-        category: string;
-        related: string;
-        image: string;
-    };
+  type SearchCommandProps = {
+    renderAs?: "button" | "text";
+    label?: string;
+    initialStocks: StockWithWatchlistStatus[];
+  };
 
-    type WatchlistNewsProps = {
-        watchlistSymbols?: string[]; // Array of stock symbols to fetch news for
-        watchlistStocks?: StockWithData[]; // Array of watchlist stocks with full data
-        articlesPerStock?: number; // Number of articles per stock
-        initialNews?: MarketNewsArticle[]; // Initial news data
-    };
+  type WelcomeEmailData = {
+    email: string;
+    name: string;
+    intro: string;
+  };
 
-    type SearchCommandProps = {
-        open?: boolean;
-        setOpen?: (open: boolean) => void;
-        renderAs?: 'button' | 'text';
-        buttonLabel?: string;
-        buttonVariant?: 'primary' | 'secondary';
-        className?: string;
-    };
+  type User = {
+    id: string;
+    name: string;
+    email: string;
+  };
 
-    type AlertFormData = {
-        alertName: string;
-        alertType: 'price' | 'volume';
-        condition: 'greater' | 'less';
-        threshold: string;
-    };
+  type Stock = {
+    symbol: string;
+    name: string;
+    exchange: string;
+    type: string;
+  };
 
-    type AlertData = {
-        alertName: string;
-        symbol: string;
-        alertType: 'price' | 'volume';
-        condition: 'greater' | 'less';
-        threshold: number;
-    };
+  type StockWithWatchlistStatus = Stock & {
+    isInWatchlist: boolean;
+  };
 
-    type AlertModalProps = {
-        isOpen: boolean;
-        onClose: () => void;
-        symbol: string;
-        company: string;
-        currentPrice?: number;
-        alertId?: string;
-        onCreateAlert?: (alertData: AlertData) => Promise<void>;
-        initialValues?: {
-            alertName?: string;
-            alertType?: 'price' | 'volume';
-            condition?: 'greater' | 'less';
-            threshold?: number;
-        };
-        action?: string;
-    };
+  type FinnhubSearchResult = {
+    symbol: string;
+    description: string;
+    displaySymbol?: string;
+    type: string;
+  };
 
-    type RecommendationData = {
-        strongBuy: number;
-        buy: number;
-        hold: number;
-        sell: number;
-        strongSell: number;
-        period: string;
-        symbol: string;
-    };
+  type FinnhubSearchResponse = {
+    count: number;
+    result: FinnhubSearchResult[];
+  };
 
-    type RawNewsArticle = {
-        id: number;
-        headline?: string;
-        summary?: string;
-        source?: string;
-        url?: string;
-        datetime?: number;
-        image?: string;
-        category?: string;
-        related?: string;
-    };
+  type StockDetailsPageProps = {
+    params: Promise<{
+      symbol: string;
+    }>;
+  };
 
-    type StockDetailsData = {
-        // Basic Information
-        symbol: string;
-        company: string;
-        exchange: string;
-        currency: string;
-        country: string;
+  type WatchlistButtonProps = {
+    symbol: string;
+    company: string;
+    isInWatchlist: boolean;
+    showTrashIcon?: boolean;
+    type?: "button" | "icon";
+    onWatchlistChange?: (symbol: string, isAdded: boolean) => void;
+  };
 
-        // Price Information
-        currentPrice: number;
-        previousClose: number;
-        dayHigh: number;
-        dayLow: number;
-        openPrice: number;
+  type QuoteData = {
+    c?: number;
+    dp?: number;
+  };
 
-        // Calculated Metrics
-        changeAmount: number;
-        changePercent: number;
-        priceFormatted: string;
-        changeFormatted: string;
-        changeAmountFormatted: string;
+  type ProfileData = {
+    name?: string;
+    marketCapitalization?: number;
+  };
 
-        // Company Information
-        marketCap: number;
-        marketCapFormatted: string;
-        sharesOutstanding: number;
+  type FinancialsData = {
+    metric?: { [key: string]: number };
+  };
 
-        // Additional Data
-        industry: string;
-        website: string;
-        logo: string;
-        ipo: string;
-        phone: string;
+  type SelectedStock = {
+    symbol: string;
+    company: string;
+    currentPrice?: number;
+  };
 
-        // Financial Metrics
-        peRatio: string;
-        eps: string;
-        sentiment: string;
+  type WatchlistTableProps = {
+    watchlist: StockWithData[];
+  };
 
-        // Metadata
-        lastUpdated: string;
-    };
+  type StockWithData = {
+    userId: string;
+    symbol: string;
+    company: string;
+    addedAt: Date;
+    currentPrice?: number;
+    changePercent?: number;
+    priceFormatted?: string;
+    changeFormatted?: string;
+    marketCap?: string;
+    peRatio?: string;
+  };
 
-    type StockDetailsProps = {
-        symbol: string | null;
-        onClose: () => void;
-        open: boolean;
-    };
+  type AlertsListProps = {
+    alertData: Alert[] | undefined;
+  };
 
-    type Stock = {
-        symbol: string;
-        name: string;
-        exchange: string;
-        type: string;
-    };
+  type MarketNewsArticle = {
+    id: number;
+    headline: string;
+    summary: string;
+    source: string;
+    url: string;
+    datetime: number;
+    category: string;
+    related: string;
+    image?: string;
+  };
 
-    type StockWithWatchlistStatus = Stock & {
-        isInWatchlist: boolean;
-    };
+  type WatchlistNewsProps = {
+    news?: MarketNewsArticle[];
+  };
 
-    type UserForNewsEmail = {
-        id: string;
-        email: string;
-        name: string;
-        country: string;
-        investmentGoals?: string;
-        riskTolerance?: string;
-        preferredIndustry?: string;
-    };
+  type SearchCommandProps = {
+    open?: boolean;
+    setOpen?: (open: boolean) => void;
+    renderAs?: "button" | "text";
+    buttonLabel?: string;
+    buttonVariant?: "primary" | "secondary";
+    className?: string;
+  };
 
-    type Alert = {
-        id: string;
-        symbol: string;
-        company: string;
-        alertName: string;
-        currentPrice: number;
-        alertType: 'upper' | 'lower' | 'volume';
-        threshold: number;
-        changePercent?: number;
-        frequency: string;
-    };
+  type AlertData = {
+    symbol: string;
+    company: string;
+    alertName: string;
+    alertType: "upper" | "lower";
+    threshold: string;
+  };
 
-    type StockWithData = {
-        _id: string;
-        userId: string;
-        symbol: string;
-        company: string;
-        addedAt: Date;
-        currentPrice?: number;
-        changePercent?: number;
-        changeAmount?: number;
-        priceFormatted?: string;
-        changeFormatted?: string;
-        changeAmountFormatted?: string;
-        marketCap?: string;
-        peRatio?: string;
-        tradingViewSymbol?: string;
-    };
+  type AlertModalProps = {
+    alertId?: string;
+    alertData?: AlertData;
+    action?: string;
+    open: boolean;
+    setOpen: (open: boolean) => void;
+  };
 
-    type FinnhubSearchResult = {
-        symbol: string;
-        description: string;
-        displaySymbol?: string;
-        type: string;
-    };
+  type RawNewsArticle = {
+    id: number;
+    headline?: string;
+    summary?: string;
+    source?: string;
+    url?: string;
+    datetime?: number;
+    image?: string;
+    category?: string;
+    related?: string;
+  };
 
-    type FormInputProps = {
-        name: string;
-        label: string;
-        placeholder: string;
-        type?: string;
-        register: UseFormRegister<any>;
-        error?: FieldError;
-        validation?: RegisterOptions;
-        disabled?: boolean;
-        value?: string;
-    };
-
-    type Option = {
-        value: string;
-        label: string;
-    };
-
-    type SelectFieldProps = {
-        name: string;
-        label: string;
-        placeholder: string;
-        options: readonly Option[];
-        control: Control<any>;
-        error?: FieldError;
-        required?: boolean;
-    };
-
-
-    type FooterLinkProps = {
-        text: string;
-        linkText: string;
-        href: string;
-    };
-
+  type Alert = {
+    id: string;
+    symbol: string;
+    company: string;
+    alertName: string;
+    currentPrice: number;
+    alertType: "upper" | "lower";
+    threshold: number;
+    changePercent?: number;
+  };
 }
 
 export {};
